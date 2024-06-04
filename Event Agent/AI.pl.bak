@@ -1,0 +1,103 @@
+dress:- event(Make),
+write('you have a collection of '),
+write(Make),
+
+nl,
+undo.
+
+
+
+/* Hypothesis*/
+
+event(birthdayParty):- birthdayParty, !.
+event(fairval):- fairval, !.
+event(picnic):- picnic, !.
+event(engagement):- engagement, !.
+event(baraat):- baraat, !.
+event(resaption):- resaption, !.
+event(casualDresses).
+
+/*knowledge*/
+
+birthdayParty :-
+agent(shirtWith_skirt),
+agent(camiDress_With_Jacket),
+agent(floor_Length_Maxi),
+agent(heighLong_Gowns),
+agent(jumpSuit),
+agent(kurtiWith_Jeans).
+
+
+fairval :-
+agent(promTulle_Dress),
+agent(blackChiffon_LongAnarkali),
+agent(lineMaxi_Dress),
+agent(fullSleeve_TopTulleLong_Skirt),
+agent(peplumTop_Plazo),
+agent(velvetCrop_TopNet_Gown).
+
+
+picnic :-
+agent(romper),
+agent(frontButton_camiMaxi),
+agent(tiered_Dress),
+agent(cami_Jumpsuit),
+agent(overSizeHoodie_WithJeans),
+agent(polkaDot_Maxi).
+
+
+engagement :-
+agent(shimmerCocktail_Gown),
+agent(blackChiffon_LongAnarkali),
+agent(frontSlited_KurtiLehenga),
+agent(digitalPrinted_LehengaCholi),
+agent(pearlWork_NetCrape_Gown),
+agent(tulle_Gown).
+
+baraat :-
+agent(fullSleeve_HeavyWorkAnarkali),
+agent(floorLengthAnarkali_WithBelt),
+agent(gown_Dress),
+agent(embroideredLehnga_Choli),
+agent(shortKhurtiWith_Garara),
+agent(choliWith_EmbroideredSharara).
+
+resaption :-
+agent(fullMaxi_Gown),
+agent(floorLengthAnarkali_WithBelt),
+agent(flaredSkirt_FullsleeveCrop_Top),
+agent(tulleProm_Dress),
+agent(flared_Lehenga),
+agent(cropTop_Lahenga).
+
+
+
+input(Question):-
+write('do you have these dresses in your wardrobe.'),
+nl,
+write(Question),
+write('?'),
+read(Response),
+nl,
+((Response == yes; Response == y)
+->
+
+assert(yes(Question));
+assert(no(Question)), fail).
+
+:- dynamic yes/1,no/1.
+
+agent(S):-
+(yes(S)
+->
+true;
+(no(S)
+->
+fail;
+input(S))).
+
+
+
+undo :- retract(yes(_)),fail.
+undo :- retract(no(_)),fail.
+undo.
